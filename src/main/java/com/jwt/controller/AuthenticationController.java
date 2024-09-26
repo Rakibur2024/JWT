@@ -7,6 +7,7 @@ import com.jwt.service.AuthenticationService;
 import com.jwt.service.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 public class AuthenticationController {
 
@@ -41,6 +43,7 @@ public class AuthenticationController {
 
     @GetMapping("/test")
     public String test(){
+        log.info("TESTING LOG WITH @Slf4j......");
         return "TESTING";
     }
 

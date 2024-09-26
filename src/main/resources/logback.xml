@@ -1,0 +1,63 @@
+<configuration>
+    <!--appender : where we will get the logs (console/file)-->
+
+    <!--ConsoleAppender : to get logs in console. It generally happens by default.-->
+    <appender name = "myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{yy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!--FileAppender : to get logs in a user defined file. We should use either FileAppender or RollingFileAppender-->
+    <appender name = "myFileAppender" class="ch.qos.logback.core.FileAppender">
+        <file>
+            journalApp.log
+        </file>
+        <encoder>
+            <pattern>
+                %d{yy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!--
+        RollingFileAppender :
+        While log files often convey useful information, they naturally grow bigger over time. If allowed to
+        grow indefinitely, their size could become a problem.
+        Logging libraries address this problem using rolling file appenders,
+        which automatically “roll” or archive the current log file, and resume logging in a new file
+        when certain predefined conditions occur, thereby preventing unwanted downtime.
+        In case of RollingFileAppender, the <file> tag should be the first tag mentioning the name of the
+        log file.
+
+        We should use either FileAppender or RollingFileAppender
+    -->
+    <appender name = "myRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>
+            journalApp.log
+        </file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>journalApp-%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!--
+        define the minimum severity level of logs.
+        call the appender type/s of logs
+    -->
+    <root level="INFO">
+        <appender-ref ref="myConsoleAppender" />
+        <appender-ref ref="myFileAppender" />
+    </root>
+
+
+</configuration>
